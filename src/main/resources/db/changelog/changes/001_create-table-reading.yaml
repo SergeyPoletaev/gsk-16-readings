@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_create-table-client
+      author: Sergey Poletaev
+      changes:
+        - createTable:
+            tableName: reading
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: reading
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    unique: false
+              - column:
+                  name: box_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    unique: false
+              - column:
+                  name: send_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+                    unique: false
