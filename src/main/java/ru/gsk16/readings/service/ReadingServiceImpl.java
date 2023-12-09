@@ -1,6 +1,7 @@
 package ru.gsk16.readings.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.gsk16.readings.mapper.ReadingMapper;
@@ -11,6 +12,7 @@ import ru.gsk16.readings.repository.ReadingRepository;
 import java.time.LocalDate;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ReadingServiceImpl implements ReadingService {
@@ -22,6 +24,7 @@ public class ReadingServiceImpl implements ReadingService {
     @Override
     @Transactional
     public boolean send(ReadingDto readingDto) {
+        log.info("Передача показаний за гараж №{}", readingDto.getBoxId());
         LocalDate currentDate = LocalDate.now();
         if (currentDate.getDayOfMonth() < START_DATE_SENDING) {
             throw new IllegalArgumentException(
