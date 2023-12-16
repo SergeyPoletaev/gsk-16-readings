@@ -1,12 +1,14 @@
 package ru.gsk16.readings.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.gsk16.readings.mapper.ReadingMapper;
 import ru.gsk16.readings.model.ReadingDto;
+import ru.gsk16.readings.model.StatisticDto;
 import ru.gsk16.readings.model.entity.Reading;
 import ru.gsk16.readings.repository.ReadingRepository;
 
@@ -14,7 +16,6 @@ import java.time.Clock;
 import java.time.LocalDate;
 import java.util.Optional;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ReadingServiceImpl implements ReadingService {
@@ -27,7 +28,6 @@ public class ReadingServiceImpl implements ReadingService {
     @Override
     @Transactional
     public boolean send(ReadingDto readingDto) {
-        log.info("Передача показаний за гараж №{}", readingDto.getBoxId());
         LocalDate currentDate = LocalDate.now(clock);
         if (currentDate.getDayOfMonth() < startDateSending) {
             throw new IllegalArgumentException(
@@ -43,6 +43,13 @@ public class ReadingServiceImpl implements ReadingService {
         );
         entityDb.ifPresent(ent -> entity.setId(ent.getId()));
         return readingRepository.save(entity).getId() != null;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<StatisticDto> findAllByBoxId(Integer boxId, Pageable pageable) {
+        Page<Reading> page = readingRepository.findAllByBoxId(boxId, pageable);
+        return page.map(readingMapper::statisticDtoFrom);
     }
 
 }

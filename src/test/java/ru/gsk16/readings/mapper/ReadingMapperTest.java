@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.gsk16.readings.model.ReadingDto;
+import ru.gsk16.readings.model.StatisticDto;
 import ru.gsk16.readings.model.entity.Reading;
 
 import java.time.LocalDateTime;
@@ -32,6 +33,22 @@ class ReadingMapperTest {
         assertThat(entity.getReading()).isEqualTo(exp.getReading());
         assertThat(entity.getBoxId()).isEqualTo(exp.getBoxId());
         assertThat(entity.getSendAt().truncatedTo(ChronoUnit.SECONDS)).isEqualTo(exp.getSendAt().truncatedTo(ChronoUnit.SECONDS));
+    }
+
+    @Test
+    void statisticDtoFrom() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        Reading reading = Reading.builder()
+                .reading(123456)
+                .boxId(24)
+                .sendAt(localDateTime)
+                .build();
+        StatisticDto expDto = StatisticDto.builder()
+                .reading(123456)
+                .period(localDateTime.toLocalDate())
+                .build();
+        StatisticDto resDto = readingMapper.statisticDtoFrom(reading);
+        assertThat(resDto).isEqualTo(expDto);
     }
 
 }

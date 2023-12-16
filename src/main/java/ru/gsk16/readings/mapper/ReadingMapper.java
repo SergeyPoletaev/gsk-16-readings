@@ -4,8 +4,10 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import ru.gsk16.readings.model.ReadingDto;
+import ru.gsk16.readings.model.StatisticDto;
 import ru.gsk16.readings.model.entity.Reading;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Mapper(componentModel = "spring",
@@ -17,5 +19,12 @@ public interface ReadingMapper {
 
     default LocalDateTime time() {
         return LocalDateTime.now();
+    }
+
+    @Mapping(target = "period", expression = "java(period(reading))")
+    StatisticDto statisticDtoFrom(Reading reading);
+
+    default LocalDate period(Reading reading) {
+        return reading.getSendAt().toLocalDate();
     }
 }

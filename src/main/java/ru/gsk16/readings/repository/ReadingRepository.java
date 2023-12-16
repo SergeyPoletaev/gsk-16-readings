@@ -1,5 +1,7 @@
 package ru.gsk16.readings.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,4 +18,6 @@ public interface ReadingRepository extends JpaRepository<Reading, Long> {
     Optional<Reading> findByBoxIdInCurrentMonth(@Param("boxId") Integer boxId,
                                                 @Param("month") Integer month,
                                                 @Param("year") Integer year);
+
+    Page<Reading> findAllByBoxId(Integer boxId, Pageable pageable);
 }

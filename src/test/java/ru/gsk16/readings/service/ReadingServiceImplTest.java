@@ -9,14 +9,21 @@ import org.mockito.Captor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import ru.gsk16.readings.mapper.ReadingMapper;
 import ru.gsk16.readings.model.ReadingDto;
+import ru.gsk16.readings.model.StatisticDto;
 import ru.gsk16.readings.model.entity.Reading;
 import ru.gsk16.readings.repository.ReadingRepository;
 
 import java.time.Clock;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -131,5 +138,33 @@ class ReadingServiceImplTest {
         verify(readingMapper, never()).readingFrom(readingDto);
         verify(readingRepository, never()).findByBoxIdInCurrentMonth(anyInt(), anyInt(), anyInt());
         verify(readingRepository, never()).save(argCaptor.capture());
+    }
+
+    @Test
+    void findAllByBoxId() {
+        int defaultPageNum = 0;
+        int defaultPageSize = 10;
+        Integer boxId = 24;
+        StatisticDto statisticDto = StatisticDto.builder()
+                .reading(123456)
+                .period(LocalDate.of(2023, 12, 1))
+                .build();
+        Reading reading = Reading.builder()
+                .reading(123456)
+                .sendAt(LocalDateTime.of(2023, 12, 1, 0, 0))
+                .build();
+        Pageable pageable = PageRequest.of(defaultPageNum, defaultPageSize);
+        Page<Reading> pageEntity = new PageImpl<>(List.of(reading));
+        Page<StatisticDto> pageDto = new PageImpl<>(List.of(statisticDto));
+
+        when(readingRepository.findAllByBoxId(boxId, pageable)).thenReturn(pageEntity);
+        when(readingMapper.statisticDtoFrom(reading)).thenReturn(statisticDto);
+
+        Page<StatisticDto> pageRsl = readingService.findAllByBoxId(boxId, pageable);
+
+        verify(readingRepository).findAllByBoxId(boxId, pageable);
+        verify(readingMapper).statisticDtoFrom(argCaptor.capture());
+        assertThat(argCaptor.getValue().getReading()).isEqualTo(123456);
+        assertThat(pageRsl).isEqualTo(pageDto);
     }
 }
