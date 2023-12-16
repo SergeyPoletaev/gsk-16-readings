@@ -11,7 +11,7 @@ import java.time.temporal.ChronoUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@SpringBootTest(classes = ReadingMapperImpl.class)
 class ReadingMapperTest {
     @Autowired
     private ReadingMapper readingMapper;

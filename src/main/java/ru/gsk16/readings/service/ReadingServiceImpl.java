@@ -36,9 +36,12 @@ public class ReadingServiceImpl implements ReadingService {
             );
         }
         Reading entity = readingMapper.readingFrom(readingDto);
-        Optional<Long> entityId =
-                readingRepository.findByBoxIdInCurrentMonth(entity.getBoxId(), currentDate.getMonthValue(), currentDate.getYear());
-        entityId.ifPresent(entity::setId);
+        Optional<Reading> entityDb = readingRepository.findByBoxIdInCurrentMonth(
+                entity.getBoxId(),
+                currentDate.getMonthValue(),
+                currentDate.getYear()
+        );
+        entityDb.ifPresent(ent -> entity.setId(ent.getId()));
         return readingRepository.save(entity).getId() != null;
     }
 

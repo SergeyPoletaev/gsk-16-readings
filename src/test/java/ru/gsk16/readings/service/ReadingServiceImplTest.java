@@ -94,7 +94,7 @@ class ReadingServiceImplTest {
         when(clock.getZone()).thenReturn(fixedClock.getZone());
 
         when(readingMapper.readingFrom(readingDto)).thenReturn(entity);
-        when(readingRepository.findByBoxIdInCurrentMonth(anyInt(), anyInt(), anyInt())).thenReturn(Optional.of(1L));
+        when(readingRepository.findByBoxIdInCurrentMonth(anyInt(), anyInt(), anyInt())).thenReturn(Optional.of(new Reading().setId(1L)));
         when(readingRepository.save(entity)).thenReturn(new Reading().setId(1L));
 
         boolean rsl = readingService.send(readingDto);
