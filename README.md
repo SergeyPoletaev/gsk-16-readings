@@ -1,6 +1,7 @@
+[![build](https://github.com/SergeyPoletaev/gsk-16-readings/workflows/build/badge.svg)](https://github.com/SergeyPoletaev/gsk-16-readings/actions)
 # gsk-16-readings
 
-REST API сервис для ежемесячной передаче показаний эл.счетчиков абонентов ГСК.
+REST API сервис для ежемесячной передачи показаний эл.счетчиков абонентов ГСК.
 
 Сборка
 ------
