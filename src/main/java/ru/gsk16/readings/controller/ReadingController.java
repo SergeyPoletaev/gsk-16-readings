@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
 @RequestMapping("/readings/v1")
 @RequiredArgsConstructor
 @Validated
-@Tag(name = "Показания эл.счетчиков", description = "Передача и получение переданных показаний")
+@Tag(name = "GSK-16 • Readings", description = "Передача и получение переданных показаний")
 public class ReadingController {
     private final ReadingService readingService;
 
