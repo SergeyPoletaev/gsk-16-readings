@@ -29,6 +29,10 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQL95Dialect
         temp:
           use_jdbc_metadata_defaults: false
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 logging:
   level:
     root: INFO
@@ -51,4 +55,7 @@ server:
       enabled: true
       charset: UTF-8
       force: true
-
+application:
+  scheduling:
+    start-transfer-period: '0 0 0 25 * *'
+    end-transfer-period: '0 0 0 28-31 * *'

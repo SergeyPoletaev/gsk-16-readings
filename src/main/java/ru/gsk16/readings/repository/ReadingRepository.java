@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import ru.gsk16.readings.model.entity.Reading;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ReadingRepository extends JpaRepository<Reading, Long> {
@@ -20,4 +21,11 @@ public interface ReadingRepository extends JpaRepository<Reading, Long> {
                                                 @Param("year") Integer year);
 
     Page<Reading> findAllByBoxId(Integer boxId, Pageable pageable);
+
+    @Query(value = """
+            SELECT box_id FROM reading
+            WHERE (date_part('month', send_at) != :month OR date_part('year', send_at) != :year)""",
+            nativeQuery = true)
+    List<Integer> findAllThoseNotProvideReadings(@Param("month") Integer month,
+                                                 @Param("year") Integer year);
 }

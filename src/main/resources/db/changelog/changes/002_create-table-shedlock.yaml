@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002_create-table-shedlock
+      author: Sergey Poletaev
+      changes:
+        - createTable:
+            tableName: shedlock
+            columns:
+              - column:
+                  name: name
+                  type: VARCHAR
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: lock_until
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: locked_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: locked_by
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
+

@@ -1,4 +1,4 @@
-package ru.gsk16.readings.service;
+package ru.gsk16.readings.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +11,7 @@ import ru.gsk16.readings.model.ReadingDto;
 import ru.gsk16.readings.model.StatisticDto;
 import ru.gsk16.readings.model.entity.Reading;
 import ru.gsk16.readings.repository.ReadingRepository;
+import ru.gsk16.readings.service.ReadingService;
 
 import java.time.Clock;
 import java.time.LocalDate;
@@ -22,7 +23,7 @@ public class ReadingServiceImpl implements ReadingService {
     private final ReadingRepository readingRepository;
     private final ReadingMapper readingMapper;
     private final Clock clock;
-    @Value("${reading.startDateSending:25}")
+    @Value("${application.reading.startDateSending:25}")
     private int startDateSending;
 
     @Override

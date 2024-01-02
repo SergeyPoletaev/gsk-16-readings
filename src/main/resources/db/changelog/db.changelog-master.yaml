@@ -2,3 +2,6 @@ databaseChangeLog:
   - include:
       file: changes/001_create-table-reading.yaml
       relativeToChangelogFile: true
+  - include:
+      file: changes/002_create-table-shedlock.yaml
+      relativeToChangelogFile: true

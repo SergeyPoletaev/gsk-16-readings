@@ -21,9 +21,12 @@
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <testcontainers.postgresql.version>1.17.6</testcontainers.postgresql.version>
+        <testcontainers.kafka.version>1.17.6</testcontainers.kafka.version>
         <testcontainers.junit-jupiter.version>1.17.6</testcontainers.junit-jupiter.version>
         <swagger-annotations.version>2.2.8</swagger-annotations.version>
         <springdoc-openapi-ui.version>1.6.15</springdoc-openapi-ui.version>
+        <shedlock-spring.version>5.10.0</shedlock-spring.version>
+        <shedlock-provider-jdbc-template.version>5.10.0</shedlock-provider-jdbc-template.version>
     </properties>
 
     <dependencies>
@@ -55,6 +58,25 @@
         </dependency>
 
         <dependency>
+            <groupId>net.javacrumbs.shedlock</groupId>
+            <artifactId>shedlock-spring</artifactId>
+            <version>${shedlock-spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.javacrumbs.shedlock</groupId>
+            <artifactId>shedlock-provider-jdbc-template</artifactId>
+            <version>${shedlock-provider-jdbc-template.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
         </dependency>
@@ -83,6 +105,12 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>${testcontainers.junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>kafka</artifactId>
+            <version>${testcontainers.kafka.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
