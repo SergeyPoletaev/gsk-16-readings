@@ -1,8 +1,9 @@
 package ru.gsk16.readings.mapper;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 import ru.gsk16.readings.model.ReadingDto;
 import ru.gsk16.readings.model.StatisticDto;
 import ru.gsk16.readings.model.entity.Reading;
@@ -12,10 +13,10 @@ import java.time.temporal.ChronoUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(classes = ReadingMapperImpl.class)
+@ExtendWith(MockitoExtension.class)
 class ReadingMapperTest {
-    @Autowired
-    private ReadingMapper readingMapper;
+    @InjectMocks
+    private ReadingMapperImpl readingMapper;
 
     @Test
     void readingFromReadingDto() {

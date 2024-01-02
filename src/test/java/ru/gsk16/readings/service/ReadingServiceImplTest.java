@@ -18,6 +18,7 @@ import ru.gsk16.readings.model.ReadingDto;
 import ru.gsk16.readings.model.StatisticDto;
 import ru.gsk16.readings.model.entity.Reading;
 import ru.gsk16.readings.repository.ReadingRepository;
+import ru.gsk16.readings.service.impl.ReadingServiceImpl;
 
 import java.time.Clock;
 import java.time.LocalDate;
@@ -39,7 +40,7 @@ class ReadingServiceImplTest {
     @MockBean
     private ReadingMapper readingMapper;
     @Autowired
-    private ReadingServiceImpl readingService;
+    private ReadingService readingService;
     @MockBean
     private Clock clock;
     @Captor
