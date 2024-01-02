@@ -21,4 +21,5 @@ application:
     enabled: false
   kafka:
     test:
-      topic: test-topic
+      topic-first: test-topic-first
+      topic-second: test-topic-second

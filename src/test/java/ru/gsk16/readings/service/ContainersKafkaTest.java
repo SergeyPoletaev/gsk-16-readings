@@ -13,7 +13,7 @@ import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
-import ru.gsk16.readings.TestKafkaConsumer;
+import ru.gsk16.readings.TestKafkaConsumerFirst;
 import ru.gsk16.readings.enums.Template;
 import ru.gsk16.readings.model.InfoMessage;
 import ru.gsk16.readings.service.impl.KafkaSenderImpl;
@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(classes = {
         KafkaAutoConfiguration.class,
-        TestKafkaConsumer.class,
+        TestKafkaConsumerFirst.class,
         KafkaSenderImpl.class
 })
 @DirtiesContext
@@ -40,10 +40,10 @@ class ContainersKafkaTest {
     static final KafkaContainer KAFKA = new KafkaContainer(DockerImageName.parse(IMAGE_VERSION));
 
     @Autowired
-    private TestKafkaConsumer consumer;
+    private TestKafkaConsumerFirst consumer;
     @Autowired
     private KafkaSender kafkaSender;
-    @Value("${application.kafka.test.topic}")
+    @Value("${application.kafka.test.topic-first}")
     private String topic;
 
     @DynamicPropertySource
@@ -52,7 +52,7 @@ class ContainersKafkaTest {
     }
 
     @Test
-    public void whenMsgSentViaSendNotificationThenMsgReceived() throws Exception {
+    public void whenMsgSentWithTopicAndPayloadThenSendNotificationReceived() throws Exception {
         InfoMessage msg = new InfoMessage().setTemplate(Template.START_OF_TRANSFER_PERIOD);
         kafkaSender.sendNotification(topic, msg);
         consumer.getLatch().await(10_000, TimeUnit.MILLISECONDS);
