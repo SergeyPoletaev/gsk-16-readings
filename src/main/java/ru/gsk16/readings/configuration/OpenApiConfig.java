@@ -6,8 +6,8 @@ import io.swagger.v3.oas.annotations.info.Info;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "Сервис отправки ежемесячных показаний эл.счетчиков",
-                description = "gsk-16-readings", version = "1.0.0",
+                title = "gsk-16-readings API",
+                description = "Сервис отправки ежемесячных показаний эл.счетчиков", version = "1.0.0",
                 contact = @Contact(
                         name = "Sergey Poletaev",
                         email = "info.elekit@.yandex.ru"
