@@ -30,9 +30,16 @@ spring:
         temp:
           use_jdbc_metadata_defaults: false
   kafka:
+    bootstrap-servers: ${CONF_KAFKA_BOOTSTRAP_SERVERS}
     producer:
+      client-id: readings-producer
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 3
+      properties.*:
+        max.in.flight.requests.per.connection: 5
+        enable.idempotence: true
 logging:
   level:
     root: INFO
