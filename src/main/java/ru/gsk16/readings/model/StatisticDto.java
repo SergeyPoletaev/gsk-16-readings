@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class StatisticDto {
     @Schema(description = "Переданные показания эл.счетчика гаража", example = "123456")
     private Integer reading;
-    @Schema(description = "Передаваемые показания эл.счетчика гаража", example = "2023-12-03")
+    @Schema(description = "Период за который передавали показания эл.счетчика гаража", example = "2023-12-03")
     private LocalDate period;
 
 }
